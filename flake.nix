@@ -5,6 +5,10 @@
     devenv.url = "github:cachix/devenv";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-python.url = "github:cachix/nixpkgs-python";
+    nixpkgs-python.inputs = {
+      nixpkgs.follows = "nixpkgs";
+    };
   };
 
   nixConfig = {
@@ -41,16 +45,31 @@
             modules = [
               {
                 packages = with pkgs; [
+                  pyright # python lsp
+                  ruff # fast linter
                 ];
 
                 # https://devenv.sh/reference/options/
-                languages.haskell = {
+                languages.python = {
                   enable = true;
+                  version = "3.11";
+                  uv = {
+                    enable = true;
+                    package = pkgs-unstable.uv;
+                    sync.enable = true;
+                  };
+                  # poetry = {
+                  #   enable = true;
+                  #   install = {
+                  #     enable = true;
+                  #   };
+                  #   activate.enable = true;
+                  # };
                 };
 
                 # https://devenv.sh/pre-commit-hooks/
                 # pre-commit.hooks = {
-                #   stylish-haskell.enable = true; # linting
+                #   ruff.enable = true; # linting
                 # };
               }
             ];
