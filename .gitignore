@@ -25,7 +25,6 @@ cabal.project.local~
 #nix stuff
 .devenv/
 .direnv/
-.pre-commit-config.yaml
 
-# ignore aider config file
+.aider*
 .env

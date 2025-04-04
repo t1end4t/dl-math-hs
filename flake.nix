@@ -45,31 +45,18 @@
             modules = [
               {
                 packages = with pkgs; [
-                  pyright # python lsp
-                  ruff # fast linter
+                  stylish-haskell
                 ];
 
                 # https://devenv.sh/reference/options/
-                languages.python = {
+                # to create project: stack --compiler=ghc-9.6.6 new helloworld new-template
+                # to run: stack --compiler=ghc-9.6.6 run
+                languages.haskell = {
                   enable = true;
-                  version = "3.11";
-                  uv = {
-                    enable = true;
-                    package = pkgs-unstable.uv;
-                    sync.enable = true;
-                  };
-                  # poetry = {
-                  #   enable = true;
-                  #   install = {
-                  #     enable = true;
-                  #   };
-                  #   activate.enable = true;
-                  # };
                 };
 
                 # https://devenv.sh/pre-commit-hooks/
                 # pre-commit.hooks = {
-                #   ruff.enable = true; # linting
                 # };
               }
             ];
